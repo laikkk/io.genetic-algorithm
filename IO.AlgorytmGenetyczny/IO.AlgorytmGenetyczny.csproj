@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chromosom.cs" />
+    <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="GeneticAlgorytm.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />
