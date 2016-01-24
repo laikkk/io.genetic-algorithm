@@ -3,12 +3,39 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:local="clr-namespace:UI_Genetic_Algorythm"
-        Title="MainWindow" Height="350" Width="525">
-    <Window.DataContext>
-        <local:MainViewModel/>
-    </Window.DataContext>
+        Title="MainWindow" Height="500" Width="725">
+    <!--<Window.DataContext>
+        <local:MainWindow/>
+    </Window.DataContext>-->
     <Grid>
-        <oxy:Plot Title="{Binding Title}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0,0,20,0">Iteration</TextBlock>
+                    <TextBox Width="50" TextAlignment="Right" Name="InterationTextBox" Text="{Binding Interation}"></TextBox>
+
+                    <TextBlock Margin="0,0,20,0">populationCount</TextBlock>
+                    <TextBox Width="50" TextAlignment="Right" Name="PopulationCountTextBox" Text="{Binding PopulationCount}"></TextBox>
+
+                    <TextBlock Margin="0,0,20,0">Max Weight</TextBlock>
+                    <TextBox Width="50" TextAlignment="Right" Name="WeightTextBox" Text="{Binding MaxWeight}"></TextBox>
+                    <Button Click="RunGeneticAlgorythm">Run</Button>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>Max value:</TextBlock>
+                    <TextBlock Margin="20,0,50,0" Text="{Binding MaxValue}"></TextBlock>
+                    <TextBlock>Duration:</TextBlock>
+                    <TextBlock Margin="20,0,50,0" Text="{Binding Duration}"></TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <oxy:Plot Title="{Binding PlotTitle}"  Grid.Row="1">
             <oxy:Plot.Series>
                 <oxy:LineSeries ItemsSource="{Binding Points}"/>
             </oxy:Plot.Series>
