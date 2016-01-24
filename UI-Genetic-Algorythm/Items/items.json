@@ -1,1 +1,37 @@
-﻿[{"Name":"pocketknife","SurvivalPoints":10,"Weight":1},{"Name":"beans","SurvivalPoints":20,"Weight":5},{"Name":"potatoes","SurvivalPoints":15,"Weight":10},{"Name":"onions","SurvivalPoints":2,"Weight":1},{"Name":"sleeping bag","SurvivalPoints":30,"Weight":7},{"Name":"rope","SurvivalPoints":10,"Weight":5},{"Name":"compass","SurvivalPoints":30,"Weight":1},{"Name":"hammock","SurvivalPoints":1,"Weight":10},{"Name":"guitar","SurvivalPoints":0,"Weight":8},{"Name":"book","SurvivalPoints":8,"Weight":3},{"Name":"sunscreen","SurvivalPoints":5,"Weight":1},{"Name":"knife","SurvivalPoints":15,"Weight":1},{"Name":"spear","SurvivalPoints":25,"Weight":5},{"Name":"fishing net","SurvivalPoints":13,"Weight":3},{"Name":"matches","SurvivalPoints":18,"Weight":1},{"Name":"bug spray","SurvivalPoints":11,"Weight":1},{"Name":"Raft ","SurvivalPoints":17,"Weight":50},{"Name":"flashlight","SurvivalPoints":20,"Weight":2},{"Name":"satellite phone","SurvivalPoints":30,"Weight":2}]
+﻿[  
+   {  
+      "Name":"pocketknife",
+      "SurvivalPoints":10,
+      "Weight":1
+   },
+   {  
+      "Name":"beans",
+      "SurvivalPoints":20,
+      "Weight":5
+   },
+   {  
+      "Name":"potatoes",
+      "SurvivalPoints":15,
+      "Weight":10
+   },
+   {  
+      "Name":"onions",
+      "SurvivalPoints":2,
+      "Weight":1
+   },
+   {  
+      "Name":"sleeping bag",
+      "SurvivalPoints":30,
+      "Weight":7
+   },
+   {  
+      "Name":"rope",
+      "SurvivalPoints":10,
+      "Weight":5
+   },
+   {  
+      "Name":"compass",
+      "SurvivalPoints":30,
+      "Weight":1
+   }
+]

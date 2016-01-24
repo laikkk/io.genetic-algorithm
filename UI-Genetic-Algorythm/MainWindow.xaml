@@ -8,37 +8,106 @@
         <local:MainWindow/>
     </Window.DataContext>-->
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid>
-            <StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="0,0,20,0">Iteration</TextBlock>
-                    <TextBox Width="50" TextAlignment="Right" Name="InterationTextBox" Text="{Binding Interation}"></TextBox>
+        <TabControl>
+            <TabItem Header="Plot">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Width="140" Margin="0,0,20,0">Iteration</TextBlock>
+                                    <TextBox Width="140" TextAlignment="Left" Name="InterationTextBox" Text="{Binding Interation}"></TextBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Width="140" Margin="0,0,20,0">Chromosom Length</TextBlock>
+                                    <TextBox Width="140" TextAlignment="Left"  Text="{Binding ChromosomLength}"></TextBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Width="140" Margin="0,0,20,0">populationCount</TextBlock>
+                                    <TextBox Width="140" TextAlignment="Left" Name="PopulationCountTextBox" Text="{Binding PopulationCount}"></TextBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Width="140" Margin="0,0,20,0">Max Weight</TextBlock>
+                                    <TextBox Width="140" TextAlignment="Left" Name="WeightTextBox" Text="{Binding MaxWeight}"></TextBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Width="140" Margin="0,0,20,0">Elitism</TextBlock>
+                                    <CheckBox Width="140" IsChecked="{Binding UseElitism}"></CheckBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Width="140" Margin="0,0,20,0">Muation Propability</TextBlock>
+                                    <TextBox Width="140" TextAlignment="Left" Text="{Binding MutationProp}"></TextBox>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="1">
+                            <StackPanel Orientation="Horizontal">
+                            <TextBlock Width="140">Max value:</TextBlock>
+                                <TextBlock Width="190" Margin="20,0,50,0" Text="{Binding MaxValue}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Width="140">Duration:</TextBlock>
+                                <TextBlock Width="190" Margin="20,0,50,0" Text="{Binding Duration}"></TextBlock>
+                            </StackPanel>
+                            <Button Click="RunGeneticAlgorythm">Run</Button>
 
-                    <TextBlock Margin="0,0,20,0">populationCount</TextBlock>
-                    <TextBox Width="50" TextAlignment="Right" Name="PopulationCountTextBox" Text="{Binding PopulationCount}"></TextBox>
+                        </StackPanel>
+                    </Grid>
 
-                    <TextBlock Margin="0,0,20,0">Max Weight</TextBlock>
-                    <TextBox Width="50" TextAlignment="Right" Name="WeightTextBox" Text="{Binding MaxWeight}"></TextBox>
-                    <Button Click="RunGeneticAlgorythm">Run</Button>
-                </StackPanel>
+                    <oxy:Plot Title="{Binding PlotTitle}"  Grid.Row="1">
+                        <oxy:Plot.Series>
+                            <oxy:LineSeries ItemsSource="{Binding Points}"/>
+                        </oxy:Plot.Series>
+                    </oxy:Plot>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Items">
 
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock>Max value:</TextBlock>
-                    <TextBlock Margin="20,0,50,0" Text="{Binding MaxValue}"></TextBlock>
-                    <TextBlock>Duration:</TextBlock>
-                    <TextBlock Margin="20,0,50,0" Text="{Binding Duration}"></TextBlock>
-                </StackPanel>
-            </StackPanel>
-        </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="9*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="692*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
 
-        <oxy:Plot Title="{Binding PlotTitle}"  Grid.Row="1">
-            <oxy:Plot.Series>
-                <oxy:LineSeries ItemsSource="{Binding Points}"/>
-            </oxy:Plot.Series>
-        </oxy:Plot>
+                    <StackPanel Grid.ColumnSpan="3">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="0,0,20,0" Width="140">Name</TextBlock>
+                                <TextBox Width="140" TextAlignment="Right" Name="ItemNameBox" ></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="0,0,20,0" Width="140">Weight</TextBlock>
+                                <TextBox Width="140" TextAlignment="Right" Name="WeightBox"></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="0,0,20,0" Width="140">Survival Points</TextBlock>
+                                <TextBox Width="140" TextAlignment="Right" Name="SurvivalPointsBox"></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="0,0,20,0" Width="140">Chromosom length</TextBlock>
+                                <TextBox Width="140" TextAlignment="Right" Name="ChromosomLengthBox"></TextBox>
+                            </StackPanel>
+                            <Button Click="SaveItemsToFile">Add</Button>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding Items}"   CanUserAddRows="False" PreviewKeyDown="DataGrid_PreviewKeyDown" Grid.ColumnSpan="3" LoadingRow="ShowColumnId"></DataGrid>
+                </Grid>
+
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

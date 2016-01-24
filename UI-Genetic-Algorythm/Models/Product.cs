@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UI_Genetic_Algorythm
+namespace UI_Genetic_Algorythm.Models
 {
     public class Product
     {

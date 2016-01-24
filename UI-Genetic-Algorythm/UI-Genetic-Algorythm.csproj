@@ -38,6 +38,10 @@
     <Reference Include="MoreLinq">
       <HintPath>..\packages\morelinq.1.4.0\lib\net35\MoreLinq.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="OxyPlot">
       <HintPath>..\packages\OxyPlot.Core.1.0.0-unstable1970\lib\net45\OxyPlot.dll</HintPath>
     </Reference>
@@ -71,7 +75,7 @@
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="GeneticAlgorytm.cs" />
     <Compile Include="MainViewModel.cs" />
-    <Compile Include="Product.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Things.cs" />
     <Compile Include="Window1.xaml.cs">
@@ -112,6 +116,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Items\items.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Items\random150nouns.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -121,6 +131,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Items\keepThisFolder.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

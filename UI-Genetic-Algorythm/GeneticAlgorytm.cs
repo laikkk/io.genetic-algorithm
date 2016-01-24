@@ -17,19 +17,23 @@ namespace UI_Genetic_Algorythm
         private readonly int _maxWeight;
         private readonly int _chromosomLength;
         private readonly double _mutationPropability;
-        public GeneticAlgorytm(int populationCount, int numberOfIterations, int maxWeightWeight, double mutationPropability, bool runInParallel)
+        private readonly bool _useElityzm;
+
+        public GeneticAlgorytm(int chromosomLength, int populationCount, int numberOfIterations, int maxWeightWeight, double mutationPropability, bool useElityzm)
         {
             Points = new List<DataPoint>();
-            _chromosomLength = Things.Products.Count;
+            _chromosomLength = chromosomLength;
             _populationCount = populationCount;
             _numberOfIterations = numberOfIterations;
             _maxWeight = maxWeightWeight;
             _mutationPropability = mutationPropability;
+            _useElityzm = useElityzm;
         }
 
         public void Compute()
         {
             List<Chromosom> population = GenerateInitialChromosomPopulation(_populationCount, _chromosomLength);
+            List<Chromosom> theBestParents = new List<Chromosom>();
             for (int i = 0; i < _numberOfIterations; i++)
             {
                 // count fitness value
@@ -40,6 +44,10 @@ namespace UI_Genetic_Algorythm
 
                 population.ForEach(chromosom => chromosom.Fitness(_maxWeight));
                 population = population.OrderByDescending(chromosom => chromosom.SurivatePoints).ToList();
+                if (_useElityzm)
+                {
+                    theBestParents = population.Take(2).ToList();
+                }
 
                 Chromosom theBestCurrentChromosom = population.First();
                 if (TheBestChromosom == null || TheBestChromosom.SurivatePoints < theBestCurrentChromosom.SurivatePoints)
@@ -49,12 +57,21 @@ namespace UI_Genetic_Algorythm
                 Points.Add(new DataPoint(i, theBestCurrentChromosom.SurivatePoints));
 
                 population = RouletteSelection(population);
-
+                
                 //population = GetListOfChromosomsUsinRuletteMethod(population);
                 //TODO
                 population = CrossPopulation(population);
 
                 population = Mutation(population);
+
+                if (_useElityzm)
+                {
+                    // replace 2 random chromosom with elite parent
+                    List<int> randomNumbers = Enumerable.Range(0, population.Count-1).Shuffle().Take(2).ToList();
+                    population.RemoveAt(randomNumbers[0]);
+                    population.RemoveAt(randomNumbers[1]);
+                    population.AddRange(theBestParents);
+                }
             }
 
             //population.ForEach(chromosom => chromosom.Fitness(_maxWeight));
