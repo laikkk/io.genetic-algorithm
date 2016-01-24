@@ -24,7 +24,7 @@
                             <StackPanel Orientation="Vertical">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Width="140" Margin="0,0,20,0">Iteration</TextBlock>
-                                    <TextBox Width="140" TextAlignment="Left" Name="InterationTextBox" Text="{Binding GeneticAlgorithmModel.Interation}"></TextBox>
+                                    <TextBox Width="140" TextAlignment="Left" Name="InterationTextBox" Text="{Binding Interation}"></TextBox>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Width="140" Margin="0,0,20,0">Chromosom Length</TextBlock>
@@ -51,7 +51,8 @@
                         <StackPanel Orientation="Vertical" Grid.Column="1">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Width="140">Max value:</TextBlock>
-                                <TextBlock Width="190" Margin="20,0,50,0" Text="{Binding MaxValue}"></TextBlock>
+                                <TextBlock Width="190" Margin="20,0,00,0" Text="{Binding MaxValue}"></TextBlock>
+                                <Button ToolTip="{Binding MaxValue}">H</Button>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Width="140">Duration:</TextBlock>

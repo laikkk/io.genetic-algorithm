@@ -241,6 +241,8 @@ namespace UI_Genetic_Algorythm
         private List<Chromosom> RouletteSelection(List<Chromosom> population)
         {
             double sumOfFitnessValues = population.Sum(x => x.SurivatePoints);
+            if (Math.Abs(sumOfFitnessValues) <= 0) return population;
+
             double[] rulette = new double[population.Count + 1];
 
             //set up roulette

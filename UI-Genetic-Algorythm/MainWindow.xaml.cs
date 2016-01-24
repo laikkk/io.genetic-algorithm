@@ -17,6 +17,7 @@ namespace UI_Genetic_Algorythm
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         
+        private const string DirectoryName = @"Items\";
         public string PlotTitle { get; private set; }
 
         private IList<DataPoint> _points;
@@ -52,75 +53,71 @@ namespace UI_Genetic_Algorythm
             }
         }
 
-        //private int _interation;
-        //public int Interation
-        //{
-        //    get { return _interation; }
-        //    set
-        //    {
-        //        _interation = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
+        private int _interation;
+        public int Interation
+        {
+            get { return _interation; }
+            set
+            {
+                _interation = value;
+                OnPropertyChanged();
+            }
+        }
 
-        //private int _populationCount;
-        //public int PopulationCount
-        //{
-        //    get { return _populationCount; }
-        //    set
-        //    {
-        //        _populationCount = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
+        private int _populationCount;
+        public int PopulationCount
+        {
+            get { return _populationCount; }
+            set
+            {
+                _populationCount = value;
+                OnPropertyChanged();
+            }
+        }
 
-        //private int _maxWeight;
-        //public int MaxWeight
-        //{
-        //    get { return _maxWeight; }
-        //    set
-        //    {
-        //        _maxWeight = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
+        private int _maxWeight;
+        public int MaxWeight
+        {
+            get { return _maxWeight; }
+            set
+            {
+                _maxWeight = value;
+                OnPropertyChanged();
+            }
+        }
 
-        //private int _chromosomLength;
-        //public int ChromosomLength
-        //{
-        //    get { return _chromosomLength; }
-        //    set
-        //    {
-        //        _chromosomLength = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
+        private int _chromosomLength;
+        public int ChromosomLength
+        {
+            get { return _chromosomLength; }
+            set
+            {
+                _chromosomLength = value;
+                OnPropertyChanged();
+            }
+        }
 
-        //private bool _useElitism;
-        //public bool UseElitism
-        //{
-        //    get { return _useElitism; }
-        //    set
-        //    {
-        //        _useElitism = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
+        private bool _useElitism;
+        public bool UseElitism
+        {
+            get { return _useElitism; }
+            set
+            {
+                _useElitism = value;
+                OnPropertyChanged();
+            }
+        }
 
-        //private double _mutationProp;
-        //public double MutationProp
-        //{
-        //    get { return _mutationProp; }
-        //    set
-        //    {
-        //        _mutationProp = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-
-        public GeneticAlgorithmModel GeneticAlgorithmModel { get; set; } = new GeneticAlgorithmModel();
-
-        private const string DirectoryName = @"Items\";
+        private double _mutationProp;
+        public double MutationProp
+        {
+            get { return _mutationProp; }
+            set
+            {
+                _mutationProp = value;
+                OnPropertyChanged();
+            }
+        }
 
         readonly GaComposerViewModel _gaComposerViewModel = new GaComposerViewModel();
 
@@ -136,12 +133,12 @@ namespace UI_Genetic_Algorythm
             PlotTitle = "Simple 2";
 
 
-            GeneticAlgorithmModel.Interation = 100;
-            //PopulationCount = 6;
-            //MaxWeight = 20;
-            //ChromosomLength = 7;
-            //UseElitism = true;
-            //MutationProp = 0.01;
+            Interation = 100;
+            PopulationCount = 6;
+            MaxWeight = 20;
+            ChromosomLength = 7;
+            UseElitism = true;
+            MutationProp = 0.01;
 
             this.Points = new List<DataPoint>
             {
@@ -163,16 +160,16 @@ namespace UI_Genetic_Algorythm
         {
             Stopwatch stopWatch = new Stopwatch();
 
-            //GeneticAlgorytm geneticAlgorytm = new GeneticAlgorytm(ChromosomLength, PopulationCount, Interation,
-            //    MaxWeight, MutationProp, UseElitism);
-            //stopWatch.Start();
-            //geneticAlgorytm.Compute();
-            //stopWatch.Stop();
+            GeneticAlgorytm geneticAlgorytm = new GeneticAlgorytm(ChromosomLength, PopulationCount, Interation,
+                MaxWeight, MutationProp, UseElitism);
+            stopWatch.Start();
+            geneticAlgorytm.Compute();
+            stopWatch.Stop();
 
-            //Duration = String.Format("{0}", stopWatch.Elapsed);
+            Duration = String.Format("{0}", stopWatch.Elapsed);
 
-            //Points = geneticAlgorytm.Points;
-            //MaxValue = geneticAlgorytm.TheBestChromosom.ToString();
+            Points = geneticAlgorytm.Points;
+            MaxValue = geneticAlgorytm.TheBestChromosom.ToString();
         }
 
         #endregion
