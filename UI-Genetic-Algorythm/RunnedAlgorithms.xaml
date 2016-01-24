@@ -1,0 +1,100 @@
+﻿<Window x:Class="UI_Genetic_Algorythm.RunnedAlgorithms"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI_Genetic_Algorythm"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        mc:Ignorable="d"
+        Title="RunnedAlgorithms" Height="500" Width="725">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <WrapPanel>
+                <TextBlock Text="Total Duration: " />
+                <TextBlock Text="{Binding TotalDuration, UpdateSourceTrigger=PropertyChanged}" Width="150" />
+            </WrapPanel>
+        </StackPanel>
+
+        <TabControl Name="TabControl" Grid.Row="1">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>                            
+                        <TextBlock Text="{Binding Id}"/> 
+                    </TextBlock>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Width="140" Margin="0,0,20,0">Iteration</TextBlock>
+                                        <TextBox Width="140" TextAlignment="Left" Name="InterationTextBox" Text="{Binding Interation}"></TextBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Width="140" Margin="0,0,20,0">Chromosom Length</TextBlock>
+                                        <TextBox Width="140" TextAlignment="Left"  Text="{Binding ChromosomLength}"></TextBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Width="140" Margin="0,0,20,0">populationCount</TextBlock>
+                                        <TextBox Width="140" TextAlignment="Left" Name="PopulationCountTextBox" Text="{Binding PopulationCount}"></TextBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Width="140" Margin="0,0,20,0">Max Weight</TextBlock>
+                                        <TextBox Width="140" TextAlignment="Left" Name="WeightTextBox" Text="{Binding MaxWeight}"></TextBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Width="140" Margin="0,0,20,0">Elitism</TextBlock>
+                                        <CheckBox Width="140" IsChecked="{Binding UseElitism}"></CheckBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Width="140" Margin="0,0,20,0">Muation Propability</TextBlock>
+                                        <TextBox Width="140" TextAlignment="Left" Text="{Binding MutationProp}"></TextBox>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Grid.Column="1">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Width="140">Max value:</TextBlock>
+                                    <TextBlock Width="190" Margin="20,0,50,0" Text="{Binding TheBestChromosom}"></TextBlock>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Width="140">Duration:</TextBlock>
+                                    <TextBlock Width="190" Margin="20,0,50,0" Text="{Binding Duration}"></TextBlock>
+                                </StackPanel>
+                                <Button Click="RunChoosenGA">Run</Button>
+
+                            </StackPanel>
+                        </Grid>
+
+                        <oxy:Plot Title="{Binding Id}"  Grid.Row="1">
+                            <oxy:Plot.Axes>
+                                <oxy:LinearAxis Position="Bottom" Minimum="0"  />
+                                <oxy:LinearAxis Position="Left" Minimum="0" Maximum="500" />
+                            </oxy:Plot.Axes>
+                            <oxy:Plot.Series>
+                                <oxy:LineSeries ItemsSource="{Binding Points}"/>
+                            </oxy:Plot.Series>
+                        </oxy:Plot>
+                    </Grid>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+    </Grid>
+</Window>

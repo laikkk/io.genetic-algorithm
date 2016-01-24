@@ -24,7 +24,7 @@
                             <StackPanel Orientation="Vertical">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Width="140" Margin="0,0,20,0">Iteration</TextBlock>
-                                    <TextBox Width="140" TextAlignment="Left" Name="InterationTextBox" Text="{Binding Interation}"></TextBox>
+                                    <TextBox Width="140" TextAlignment="Left" Name="InterationTextBox" Text="{Binding GeneticAlgorithmModel.Interation}"></TextBox>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Width="140" Margin="0,0,20,0">Chromosom Length</TextBlock>
@@ -50,7 +50,7 @@
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Grid.Column="1">
                             <StackPanel Orientation="Horizontal">
-                            <TextBlock Width="140">Max value:</TextBlock>
+                                <TextBlock Width="140">Max value:</TextBlock>
                                 <TextBlock Width="190" Margin="20,0,50,0" Text="{Binding MaxValue}"></TextBlock>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
@@ -97,16 +97,67 @@
                                 <TextBox Width="140" TextAlignment="Right" Name="SurvivalPointsBox"></TextBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Margin="0,0,20,0" Width="140">Chromosom length</TextBlock>
-                                <TextBox Width="140" TextAlignment="Right" Name="ChromosomLengthBox"></TextBox>
+                                <Button Click="AddAndSaveItemsToFile" Width="150">Add</Button>
+                                <Button Click="LoadRandomNouns" Width="150" Margin="200,0,0,0">Load Random Nouns</Button>
                             </StackPanel>
-                            <Button Click="SaveItemsToFile">Add</Button>
                         </StackPanel>
                     </StackPanel>
 
-                    <DataGrid Grid.Row="1" ItemsSource="{Binding Items}"   CanUserAddRows="False" PreviewKeyDown="DataGrid_PreviewKeyDown" Grid.ColumnSpan="3" LoadingRow="ShowColumnId"></DataGrid>
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding Items}" CanUserAddRows="False" PreviewKeyDown="DataGrid_PreviewKeyDown" Grid.ColumnSpan="3" LoadingRow="ShowColumnId"></DataGrid>
                 </Grid>
 
+            </TabItem>
+
+
+
+            <TabItem Header="Run GAs">
+                <Grid Name="RunGAs" DataContext="{Binding GaComposerViewModel}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Width="140" Margin="0,0,20,0">Iteration</TextBlock>
+                                    <TextBox Width="140" TextAlignment="Left" Name="CInterationTextBox" Text="{Binding Interation}"></TextBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Width="140" Margin="0,0,20,0">Chromosom Length</TextBlock>
+                                    <TextBox Width="140" TextAlignment="Left"  Text="{Binding ChromosomLength}"></TextBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Width="140" Margin="0,0,20,0">populationCount</TextBlock>
+                                    <TextBox Width="140" TextAlignment="Left" Name="CPopulationCountTextBox" Text="{Binding PopulationCount}"></TextBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Width="140" Margin="0,0,20,0">Max Weight</TextBlock>
+                                    <TextBox Width="140" TextAlignment="Left" Name="CWeightTextBox" Text="{Binding MaxWeight}"></TextBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Width="140" Margin="0,0,20,0">Elitism</TextBlock>
+                                    <CheckBox Width="140" IsChecked="{Binding UseElitism}"></CheckBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Width="140" Margin="0,0,20,0">Muation Propability</TextBlock>
+                                    <TextBox Width="140" TextAlignment="Left" Text="{Binding MutationProp}"></TextBox>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="1">
+                            <Button Width="100" Click="AddToGaComposer" Margin="0,0,0,10" >Add</Button>
+                            <Button Width="100" Click="Open_GAs" Margin="0,0,0,10">Open</Button>
+                            <Button Width="100" Click="Run_GAs" Margin="0,0,0,10">RUN</Button>
+                            <Button Width="100" Click="Run_GAs_In_Parallel" >RUN in Parallel</Button>
+                        </StackPanel>
+                    </Grid>
+                    <DataGrid Grid.Row="1" UseLayoutRounding="False" ItemsSource="{Binding GeneticAlgorytms1}"></DataGrid>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>

@@ -3,38 +3,159 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using OxyPlot;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace UI_Genetic_Algorythm
 {
-    public class GeneticAlgorytm
+    public class GeneticAlgorytm : INotifyPropertyChanged
     {
-        public IList<DataPoint> Points { get; }
+        public string Test { get; set; } = "TEST23";
         public Chromosom TheBestChromosom { get; set; }
 
-        private readonly Random _random = new Random();
-        private readonly int _populationCount;
-        private readonly int _numberOfIterations;
-        private readonly int _maxWeight;
-        private readonly int _chromosomLength;
-        private readonly double _mutationPropability;
-        private readonly bool _useElityzm;
+        private IList<DataPoint> _points;
+        public IList<DataPoint> Points
+        {
+            get { return _points; }
+            set
+            {
+                _points = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public GeneticAlgorytm(int chromosomLength, int populationCount, int numberOfIterations, int maxWeightWeight, double mutationPropability, bool useElityzm)
+        private int _id;
+
+        public int Id
+        {
+            get { return _id; }
+            set
+            {
+                _id = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _maxValue;
+
+        public string MaxValue
+        {
+            get { return _maxValue; }
+            set
+            {
+                _maxValue = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _duration;
+
+        public string Duration
+        {
+            get { return _duration; }
+            set
+            {
+                _duration = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _interation;
+
+        public int Interation
+        {
+            get { return _interation; }
+            set
+            {
+                _interation = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _populationCount;
+
+        public int PopulationCount
+        {
+            get { return _populationCount; }
+            set
+            {
+                _populationCount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _maxWeight;
+
+        public int MaxWeight
+        {
+            get { return _maxWeight; }
+            set
+            {
+                _maxWeight = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _chromosomLength;
+
+        public int ChromosomLength
+        {
+            get { return _chromosomLength; }
+            set
+            {
+                _chromosomLength = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _useElitism;
+
+        public bool UseElitism
+        {
+            get { return _useElitism; }
+            set
+            {
+                _useElitism = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private double _mutationProp;
+
+        public double MutationProp
+        {
+            get { return _mutationProp; }
+            set
+            {
+                _mutationProp = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private readonly Random _random = new Random();
+
+        public GeneticAlgorytm(int chromosomLength, int populationCount, int numberOfIterations, int maxWeightWeight, double mutationPropability, bool useElityzm,int id=0)
         {
             Points = new List<DataPoint>();
-            _chromosomLength = chromosomLength;
-            _populationCount = populationCount;
-            _numberOfIterations = numberOfIterations;
-            _maxWeight = maxWeightWeight;
-            _mutationPropability = mutationPropability;
-            _useElityzm = useElityzm;
+            ChromosomLength = chromosomLength;
+            PopulationCount = populationCount;
+            Interation = numberOfIterations;
+            MaxWeight = maxWeightWeight;
+            MutationProp = mutationPropability;
+            UseElitism = useElityzm;
+            Id = id;
         }
 
         public void Compute()
         {
+            Points = new List<DataPoint>();
+            
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
             List<Chromosom> population = GenerateInitialChromosomPopulation(_populationCount, _chromosomLength);
             List<Chromosom> theBestParents = new List<Chromosom>();
-            for (int i = 0; i < _numberOfIterations; i++)
+            for (int i = 0; i < Interation; i++)
             {
                 // count fitness value
                 //foreach (var chromosom in population)
@@ -44,7 +165,7 @@ namespace UI_Genetic_Algorythm
 
                 population.ForEach(chromosom => chromosom.Fitness(_maxWeight));
                 population = population.OrderByDescending(chromosom => chromosom.SurivatePoints).ToList();
-                if (_useElityzm)
+                if (UseElitism)
                 {
                     theBestParents = population.Take(2).ToList();
                 }
@@ -64,7 +185,7 @@ namespace UI_Genetic_Algorythm
 
                 population = Mutation(population);
 
-                if (_useElityzm)
+                if (UseElitism)
                 {
                     // replace 2 random chromosom with elite parent
                     List<int> randomNumbers = Enumerable.Range(0, population.Count-1).Shuffle().Take(2).ToList();
@@ -73,6 +194,10 @@ namespace UI_Genetic_Algorythm
                     population.AddRange(theBestParents);
                 }
             }
+            stopWatch.Stop();
+            Duration = String.Format("{0}", stopWatch.Elapsed);
+
+            //Plot
 
             //population.ForEach(chromosom => chromosom.Fitness(_maxWeight));
             //var sortedPopulation = population.OrderByDescending(chromosom => chromosom.SurivatePoints);
@@ -89,7 +214,7 @@ namespace UI_Genetic_Algorythm
             for (int i = 0; i < population.Count; i++)
             {
                 double randomShot = _random.NextDouble();
-                if (randomShot <= _mutationPropability)
+                if (randomShot <= MutationProp)
                 {
                     int crossPointIndex = _random.Next(0, lengthOfChromosom);
                     population[i].Bits[crossPointIndex] = !population[i].Bits[crossPointIndex];
@@ -244,5 +369,20 @@ namespace UI_Genetic_Algorythm
 
             return Tuple.Create(newChromosomOne, newChromosomTwo);
         }
+
+        #region MVVM stuff
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string propName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(propName));
+            }
+        }
+
+        #endregion
     }
 }
