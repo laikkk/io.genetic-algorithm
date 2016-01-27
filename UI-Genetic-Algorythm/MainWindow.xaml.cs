@@ -166,7 +166,7 @@ namespace UI_Genetic_Algorythm
             geneticAlgorytm.Compute();
             stopWatch.Stop();
 
-            Duration = String.Format("{0}", stopWatch.Elapsed);
+            Duration = stopWatch.Elapsed.ToString("mm\\:ss\\.fff");
 
             Points = geneticAlgorytm.Points;
             MaxValue = geneticAlgorytm.TheBestChromosom.ToString();

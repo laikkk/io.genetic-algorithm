@@ -74,7 +74,7 @@ namespace UI_Genetic_Algorythm
                     geneticAlgorytms.ForEach(algorytm => algorytm.Compute());
                 }
                 stopwatch.Stop();
-                TotalDuration = stopwatch.Elapsed.ToString();
+                TotalDuration = stopwatch.Elapsed.ToString("mm\\:ss\\:fff");
             }
         }
         private void RunChoosenGA(object sender, RoutedEventArgs e)

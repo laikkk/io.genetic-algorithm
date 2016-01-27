@@ -157,12 +157,6 @@ namespace UI_Genetic_Algorythm
             List<Chromosom> theBestParents = new List<Chromosom>();
             for (int i = 0; i < Interation; i++)
             {
-                // count fitness value
-                //foreach (var chromosom in population)
-                //{
-                //    chromosom.Fitness(_maxWeight);
-                //}
-
                 population.ForEach(chromosom => chromosom.Fitness(_maxWeight));
                 population = population.OrderByDescending(chromosom => chromosom.SurivatePoints).ToList();
                 if (UseElitism)
@@ -179,8 +173,6 @@ namespace UI_Genetic_Algorythm
 
                 population = RouletteSelection(population);
                 
-                //population = GetListOfChromosomsUsinRuletteMethod(population);
-                //TODO
                 population = CrossPopulation(population);
 
                 population = Mutation(population);
@@ -195,7 +187,7 @@ namespace UI_Genetic_Algorythm
                 }
             }
             stopWatch.Stop();
-            Duration = String.Format("{0}", stopWatch.Elapsed);
+            Duration =  stopWatch.Elapsed.ToString("mm\\:ss\\.fff");
 
             //Plot
 
@@ -228,10 +220,8 @@ namespace UI_Genetic_Algorythm
         {
             List<Chromosom> population = new List<Chromosom>();
 
-            //int maxValue = (int)Math.Pow(2, chromosomLength) - 1; // eg 4x1 1111 = max value from these bits is 15 [(2^4)-1]
             for (int i = 0; i < populationCount; i++)
             {
-                //population.Add(new Chromosom { Value = _random.Next(0, maxValue), NumberOfBits = chromosomLength });
                 population.Add(new Chromosom(chromosomLength, _random));
             }
 
@@ -276,40 +266,6 @@ namespace UI_Genetic_Algorythm
             return selectedChromosoms;
         }
 
-        private List<Chromosom> GetListOfChromosomsUsinRuletteMethod(List<Chromosom> population)
-        {
-            double sumOfAllChromosomsFitnessValues = population.Sum(x => x.SurivatePoints);
-            double meanOfChromosomsFitnessValues = sumOfAllChromosomsFitnessValues / population.Count;
-
-            List<Chromosom> tmpPopulation = new List<Chromosom>(population.Count);
-
-            foreach (var chromosom in population)
-            {
-                int numberOfChromosomsInNewGeneration = (int)Math.Round(chromosom.SurivatePoints / meanOfChromosomsFitnessValues);
-                Console.WriteLine("Chomosom: {0} is going to be add {1}-times to new generation", chromosom, numberOfChromosomsInNewGeneration);
-                for (int i = 0; i < numberOfChromosomsInNewGeneration; i++)
-                {
-                    tmpPopulation.Add(chromosom);
-                }
-            }
-
-            int countDiffence = tmpPopulation.Count - population.Count;
-
-            if (countDiffence < 0)
-            {
-                //var sortedPopulation = population.OrderByDescending(chromosom => chromosom.SurivatePoints);
-                // population should be sorted here
-                tmpPopulation.AddRange(population.Take(Math.Abs(countDiffence)));
-            }
-            else if (tmpPopulation.Count - population.Count > 0)
-            {
-                tmpPopulation = tmpPopulation.Shuffle().Take(population.Count).ToList();
-            }
-
-            return tmpPopulation;
-            // do cross
-        }
-
         private List<Chromosom> CrossPopulation(List<Chromosom> population)
         {
             int numberOfPairsToCross = population.Count / 2;
@@ -332,11 +288,6 @@ namespace UI_Genetic_Algorythm
             int lengthOfChromosom = chromosomOne.Bits.Length; //TODO
             int crossPointIndex = _random.Next(0, lengthOfChromosom); //TODO check if - 1 is needed
 
-            //bool[] firstPartBitsOfOneChromosm = new bool[chromosomOne.Bits.Length];
-            //bool[] secondPartBitsOfOneChromosm = new bool[chromosomOne.Bits.Length];
-            //chromosomOne.Bits.CopyTo(firstPartBitsOfOneChromosm, crossPointIndex);
-            //chromosomOne.Bits.
-
             var firstPartOfChromosomA = chromosomOne.Bits.Cast<bool>().Take(crossPointIndex).ToArray();
             var secondPartOfChromosomA = chromosomOne.Bits.Cast<bool>().Skip(crossPointIndex).ToArray();
 
@@ -346,19 +297,7 @@ namespace UI_Genetic_Algorythm
             BitArray newChildA = new BitArray(firstPartOfChromosomA.Concat(secondPartOfChromosomB).ToArray());
             BitArray newChildB = new BitArray(firstPartOfChromosomB.Concat(secondPartOfChromosomA).ToArray());
 
-            //string chromosomOneAsString = chromosomOne.AsAStringBits(); // rewrite this function
-            //string chromosomTwoAsString = chromosomTwo.AsAStringBits();
-
-            //string newOneChromosm = chromosomOneAsString.Substring(0, crossPointIndex);
-            //newOneChromosm += chromosomTwoAsString.Substring(crossPointIndex);
-
-            //string newTwoChromosm = chromosomTwoAsString.Substring(0, crossPointIndex);
-            //newTwoChromosm += chromosomOneAsString.Substring(crossPointIndex);
-
-            //Chromosom newChromosomOne = new Chromosom() { Value = Convert.ToInt32(newOneChromosm, 2), NumberOfBits = chromosomOne.NumberOfBits };
-            //Chromosom newChromosomTwo = new Chromosom() { Value = Convert.ToInt32(newTwoChromosm, 2), NumberOfBits = chromosomOne.NumberOfBits };
-
-            Chromosom newChromosomOne = new Chromosom(newChildA);//; { Value = Convert.ToInt32(newOneChromosm, 2), NumberOfBits = chromosomOne.NumberOfBits };
+            Chromosom newChromosomOne = new Chromosom(newChildA);
             Chromosom newChromosomTwo = new Chromosom(newChildB);
 
             //Console.WriteLine("Old(Parent) Chromosoms:");
